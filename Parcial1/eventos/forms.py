@@ -5,12 +5,9 @@ from .models import Evento
 class OrganizadorForm(forms.ModelForm):
     class Meta:
         model = Organizador
-        fields = ['nombre', 'email', 'telefono']
+        fields = ['nombre', 'telefono', 'email']
 
 class EventoForm(forms.ModelForm):
     class Meta:
         model = Evento
-        fields = ['nombre', 'fecha', 'organizador']
-        widgets = {
-            'fecha': forms.DateInput(attrs={'type': 'date'}),
-        }
+        fields = ['nombre', 'organizador', 'fecha', 'descripcion']

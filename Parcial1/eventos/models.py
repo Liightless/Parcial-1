@@ -1,13 +1,15 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 
+
 class Organizador(models.Model):
     nombre = models.CharField(max_length=100)
-    email = models.EmailField()
-    telefono = models.CharField(max_length=15, blank=True, null=True)
+    telefono = models.CharField(max_length=15, null=True, blank=True)  
+    email = models.EmailField(null=True, blank=True) 
 
     def __str__(self):
         return self.nombre
+
 
 def validar_nombre_evento(value):
     palabras_restringidas = ['prohibido', 'secreto']
@@ -15,9 +17,10 @@ def validar_nombre_evento(value):
         raise ValidationError(f"El nombre del evento no puede contener palabras restringidas: {', '.join(palabras_restringidas)}")
 
 class Evento(models.Model):
-    nombre = models.CharField(max_length=200, validators=[validar_nombre_evento])
+    nombre = models.CharField(max_length=200)
+    organizador = models.ForeignKey(Organizador, on_delete=models.CASCADE)
     fecha = models.DateField()
-    organizador = models.ForeignKey(Organizador, on_delete=models.CASCADE, related_name='eventos')
+    descripcion = models.TextField(default='No description provided') 
 
     def __str__(self):
         return self.nombre

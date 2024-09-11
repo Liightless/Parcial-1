@@ -1,0 +1,8 @@
+<!-- organizador_list.html -->
+<h1>Lista de Organizadores</h1>
+<ul>
+    {% for organizador in organizadores %}
+        <li>{{ organizador.nombre }} - {{ organizador.telefono }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'organizador-create' %}">Agregar nuevo organizador</a>

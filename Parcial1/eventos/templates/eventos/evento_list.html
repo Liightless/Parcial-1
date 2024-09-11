@@ -9,11 +9,23 @@
     <h1>Lista de Eventos</h1>
     <ul>
         {% for evento in eventos %}
-        <li>{{ evento.nombre }} - {{ evento.fecha }} - {{ evento.organizador.nombre }}</li>
+        <li>
+            {{ evento.nombre }} - {{ evento.fecha }} - {{ evento.organizador.nombre }}
+            {% if user.is_authenticated %}
+            <a href="{% url 'evento-edit' evento.pk %}">Editar</a>
+            {% endif %}
+        </li>
         {% empty %}
         <li>No hay eventos registrados.</li>
         {% endfor %}
     </ul>
     <a href="{% url 'evento-create' %}">Agregar Nuevo Evento</a>
+
+    {% if user.is_authenticated %}
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+    </form>
+    {% endif %}
 </body>
 </html>

@@ -1,0 +1,8 @@
+<!-- organizador_form.html -->
+<h1>Crear Organizador</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+</form>
+<a href="{% url 'organizador-list' %}">Volver a la lista</a>
